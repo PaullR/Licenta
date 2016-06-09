@@ -318,6 +318,35 @@ public class ItemsCommand{
 			mysqlDatabase.closeConnection();
 			return items;
 		}
+		
+		public ArrayList<Item> getMediumSpeed(String street) {
+			System.out.println("Connect to the database and get items for computing medium speed.");
+			
+			ArrayList<Item> items = new ArrayList<Item>();
+
+			mysqlDatabase.openConnection();
+			Connection connection = mysqlDatabase.getConnection();
+
+			String mySQLQuery = "SELECT users.username, reports.* FROM users join reports on users.userId=reports.userId WHERE `reports`.date_time > DATE_SUB(NOW(), INTERVAL 1 HOUR) and street='"+street+"'";
+
+			Statement stat = mysqlDatabase.getStatement();
+			ResultSet result;
+			try {
+				result = stat.executeQuery(mySQLQuery);
+
+				while (result.next()) {
+					Item item = new Item(result.getString(1),result.getInt(2), result.getInt(3), result.getString(4), result.getDouble(5),result.getDouble(6),result.getString(7),result.getString(8),result.getString(9),result.getString(10),result.getString(11));			
+					items.add(item);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			// Close DB Connection
+			mysqlDatabase.closeConnection();
+			System.out.println("returning items for medium speed computinfg.");
+			return items;
+		}
 	}
 
 

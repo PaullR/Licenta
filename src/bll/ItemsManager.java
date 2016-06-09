@@ -72,6 +72,15 @@ public class ItemsManager {
 		System.out.println("GET REQ");
 		Items items= new Items();
 		items.arr = itemsCommand.getReportsForPrediction(street);
+		System.out.println("Predict: "+ items.arr);
+		return items;
+	}
+	
+	public Items getMediumSpeed(String street){
+		System.out.println("GET REQ");
+		Items items= new Items();
+		items.arr = itemsCommand.getMediumSpeed(street);
+		System.out.println("MediumSpeed: "+ items.arr);
 		return items;
 	}
 }

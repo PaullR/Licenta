@@ -117,6 +117,13 @@ public class ClientManagerThread extends Thread {
 			
 		}
 		
+		if(req.method.equals("MediumSpeed")){
+			Items items;
+			items = itemsManager.getMediumSpeed(req.street);
+			response = new MyResponse(" ok", items);
+			System.out.println("Size: "+ response.object.toString());
+		}
+		
 		System.out.println(response.toString());
 		
 		return response;
